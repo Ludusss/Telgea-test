@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { RestToInternalMapper } from "../../src/application/mappers/rest-to-internal.mapper";
-import { RestUsageResponseDto } from "../src/application/dtos";
+import { RestUsageResponseDto } from "../../src/application/dtos";
 
 describe("RestToInternalMapper", () => {
   const mapper = new RestToInternalMapper();
