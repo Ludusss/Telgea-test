@@ -1,5 +1,5 @@
 import { IRestClient } from "../../infrastructure/api/rest/mvno-rest-client";
-import { RestToInternalMapper } from "../mappers/rest-to-internal.mapper";
+import { RestToInternalMapper } from "@application/mappers/rest-to-internal.mapper";
 import { InternalApiFormatDto } from "../dtos";
 
 /**

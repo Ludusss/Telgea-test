@@ -27,7 +27,7 @@ export class DataAggregationService {
     // Ensure each required property exists
     this.validateRequiredProperties(merged);
 
-    return merged;
+    return merged as InternalApiFormatDto;;
   }
 
   /**

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { GetNormalizedUsageDataUseCase } from "../../../application/use-cases/get-normalized-usage-data.use-case";
-import { GetNormalizedSmsDataUseCase } from "../../../application/use-cases/get-normalized-sms-data.use-case";
-import { GetAggregatedUserDataUseCase } from "../../../application/use-cases/get-aggregated-user-data.use-case";
-import { container } from "../../../container";
+import { GetNormalizedUsageDataUseCase } from "../../application/use-cases/get-normalized-usage-data.use-case";
+import { GetNormalizedSmsDataUseCase } from "../../application/use-cases/get-normalized-sms-data.use-case";
+import { GetAggregatedUserDataUseCase } from "../../application/use-cases/get-aggregated-user-data.use-case";
+import { container } from "../../container";
 
 class MvnoController {
   /**

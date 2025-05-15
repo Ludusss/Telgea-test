@@ -1,94 +1,76 @@
-import * as xml2js from "xml2js";
-import { SoapSmsResponseDto } from "../../application/dtos";
+import { RestUsageResponseDto } from '@application/dtos';
 
 /**
- * Interface for SOAP API client
+ * Interface for REST API client
  */
-export interface ISoapClient {
-  fetchSmsChargeData(userId: string): Promise<SoapSmsResponseDto>;
+export interface IRestClient {
+  fetchUsageData(userId: string): Promise<RestUsageResponseDto>;
 }
 
 /**
- * Implementation of SOAP client for MVNO provider
+ * Implementation of REST client for MVNO provider
  */
-export class MvnoSoapClient implements ISoapClient {
+export class MvnoRestClient implements IRestClient {
   private readonly baseUrl: string;
-  private readonly parser: xml2js.Parser;
-
+  
   /**
    * Constructor
-   * @param baseUrl The base URL for the SOAP API
+   * @param baseUrl The base URL for the REST API
    */
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
-    this.parser = new xml2js.Parser({
-      explicitArray: false,
-      tagNameProcessors: [xml2js.processors.stripPrefix],
-    });
   }
-
+  
   /**
-   * Fetch SMS charge data for a specific user from the MVNO SOAP API
+   * Fetch usage data for a specific user from the MVNO REST API
    * @param userId The user ID to fetch data for
-   * @returns Parsed SOAP response
+   * @returns REST response
    */
-  public async fetchSmsChargeData(userId: string): Promise<SoapSmsResponseDto> {
+  public async fetchUsageData(userId: string): Promise<RestUsageResponseDto> {
     try {
-      // In a real implementation, this would make an actual SOAP API call
+      // In a real implementation, this would make an actual REST API call
       // For this assignment, we mock the response
-      const mockSoapResponse = this.getMockSoapResponse(userId);
-
-      // Parse the XML response
-      const parsedResponse = await this.parseXmlResponse(mockSoapResponse);
-
-      return parsedResponse;
+      const mockResponse = this.getMockRestResponse(userId);
+      
+      // In a real application, we would make an HTTP request like this:
+      // const response = await axios.get(`${this.baseUrl}/users/${userId}/usage`);
+      // return response.data;
+      
+      return mockResponse;
     } catch (error) {
-      console.error("Error fetching SMS charge data:", error);
-      throw new Error(
-        `Failed to fetch SMS charge data: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
+      console.error('Error fetching usage data:', error);
+      throw new Error(`Failed to fetch usage data: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
-
+  
   /**
-   * Parse XML response to JavaScript object
-   * @param xmlString XML string to parse
-   * @returns Parsed object
-   */
-  private async parseXmlResponse(
-    xmlString: string
-  ): Promise<SoapSmsResponseDto> {
-    try {
-      return (await this.parser.parseStringPromise(
-        xmlString
-      )) as SoapSmsResponseDto;
-    } catch (error) {
-      throw new Error(
-        `Failed to parse XML response: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
-    }
-  }
-
-  /**
-   * Generate mock SOAP response for testing
+   * Generate mock REST response for testing
    * @param userId User ID to include in the mock response
-   * @returns Mock SOAP XML string
+   * @returns Mock REST response object
    */
-  private getMockSoapResponse(userId: string): string {
-    return `
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sms="http://provider.com/sms">
-        <soapenv:Header/>
-        <soapenv:Body>
-          <sms:ChargeSMS>
-            <sms:UserID>${userId}</sms:UserID>
-            <sms:PhoneNumber>+46701234567</sms:PhoneNumber>
-            <sms:MessageID>msg${Math.floor(Math.random() * 1000)}</sms:MessageID>
-            <sms:Timestamp>${new Date().toISOString()}</sms:Timestamp>
-            <sms:ChargeAmount>0.05</sms:ChargeAmount>
-            <sms:Currency>EUR</sms:Currency>
-          </sms:ChargeSMS>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    `;
+  private getMockRestResponse(userId: string): RestUsageResponseDto {
+    const now = new Date();
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
+    
+    return {
+      user_id: userId,
+      msisdn: "+46701234567",
+      usage: {
+        data: {
+          total_mb: 845.23,
+          roaming_mb: 210.50,
+          country: "SE"
+        },
+        period: {
+          start: startOfMonth.toISOString(),
+          end: endOfMonth.toISOString()
+        }
+      },
+      network: {
+        type: "4G",
+        provider_code: "SE01"
+      }
+    };
   }
 }

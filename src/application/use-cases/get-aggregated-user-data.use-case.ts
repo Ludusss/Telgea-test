@@ -1,7 +1,7 @@
 import { ISoapClient } from "../../infrastructure/api/soap/mvno-soap-client";
 import { IRestClient } from "../../infrastructure/api/rest/mvno-rest-client";
-import { SoapToInternalMapper } from "../mappers/soap-to-internal.mapper";
-import { RestToInternalMapper } from "../mappers/rest-to-internal.mapper";
+import { SoapToInternalMapper } from "@application/mappers/soap-to-internal.mapper";
+import { RestToInternalMapper } from "@application/mappers/rest-to-internal.mapper";
 import { DataAggregationService } from "../services/data-aggregation.service";
 import { InternalApiFormatDto } from "../dtos";
 

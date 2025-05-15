@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import "reflect-metadata"; // Required for InversifyJS
-import routes from "./interface/api/routes/mvno.routes";
+import routes from "./api/routes/mvno.routes";
 import { config } from "./config";
 
 // Create Express server

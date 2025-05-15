@@ -1,5 +1,5 @@
 import * as xml2js from "xml2js";
-import { SoapSmsResponseDto } from "../../application/dtos";
+import { SoapSmsResponseDto } from '@application/dtos';
 
 /**
  * Interface for SOAP API client
