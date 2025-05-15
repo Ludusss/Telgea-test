@@ -14,10 +14,8 @@ import { GetNormalizedUsageDataUseCase } from "./application/use-cases/get-norma
 import { GetNormalizedSmsDataUseCase } from "./application/use-cases/get-normalized-sms-data";
 import { GetAggregatedUserDataUseCase } from "./application/use-cases/get-aggregated-user-data";
 
-// Set up InversifyJS container for dependency injection
 const container = new Container();
 
-// Register configuration values
 container
   .bind<string>("SoapApiBaseUrl")
   .toConstantValue("https://mvno-provider.example.com/soap");
@@ -25,7 +23,6 @@ container
   .bind<string>("RestApiBaseUrl")
   .toConstantValue("https://mvno-provider.example.com/api/v1");
 
-// Register infrastructure components
 container
   .bind<ISoapClient>("ISoapClient")
   .toDynamicValue((context) => {
@@ -42,7 +39,6 @@ container
   })
   .inSingletonScope();
 
-// Register application components
 container
   .bind<SoapToInternalMapper>(SoapToInternalMapper)
   .toSelf()
@@ -56,13 +52,11 @@ container
   .toSelf()
   .inSingletonScope();
 
-// Register use cases
 container
   .bind<GetNormalizedUsageDataUseCase>(GetNormalizedUsageDataUseCase)
   .toDynamicValue((context) => {
     const restClient = context.container.get<IRestClient>("IRestClient");
-    const mapper =
-      context.container.get<RestToInternalMapper>(RestToInternalMapper);
+    const mapper = context.container.get<RestToInternalMapper>(RestToInternalMapper);
     return new GetNormalizedUsageDataUseCase(restClient, mapper);
   })
   .inSingletonScope();
@@ -71,8 +65,7 @@ container
   .bind<GetNormalizedSmsDataUseCase>(GetNormalizedSmsDataUseCase)
   .toDynamicValue((context) => {
     const soapClient = context.container.get<ISoapClient>("ISoapClient");
-    const mapper =
-      context.container.get<SoapToInternalMapper>(SoapToInternalMapper);
+    const mapper = context.container.get<SoapToInternalMapper>(SoapToInternalMapper);
     return new GetNormalizedSmsDataUseCase(soapClient, mapper);
   })
   .inSingletonScope();
@@ -82,10 +75,8 @@ container
   .toDynamicValue((context) => {
     const soapClient = context.container.get<ISoapClient>("ISoapClient");
     const restClient = context.container.get<IRestClient>("IRestClient");
-    const soapMapper =
-      context.container.get<SoapToInternalMapper>(SoapToInternalMapper);
-    const restMapper =
-      context.container.get<RestToInternalMapper>(RestToInternalMapper);
+    const soapMapper = context.container.get<SoapToInternalMapper>(SoapToInternalMapper);
+    const restMapper = context.container.get<RestToInternalMapper>(RestToInternalMapper);
     const aggregationService = context.container.get<DataAggregationService>(
       DataAggregationService
     );

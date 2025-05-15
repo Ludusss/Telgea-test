@@ -5,9 +5,6 @@ import { GetAggregatedUserDataUseCase } from "../../application/use-cases/get-ag
 import { container } from "../../container";
 
 class MvnoController {
-  /**
-   * Get normalized usage data for a user
-   */
   public async getNormalizedUsageData(
     req: Request,
     res: Response
@@ -27,9 +24,6 @@ class MvnoController {
     }
   }
 
-  /**
-   * Get normalized SMS charging data for a user
-   */
   public async getNormalizedSmsData(
     req: Request,
     res: Response
@@ -49,9 +43,6 @@ class MvnoController {
     }
   }
 
-  /**
-   * Get aggregated normalized data for a user
-   */
   public async getAggregatedUserData(
     req: Request,
     res: Response
