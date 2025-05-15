@@ -57,11 +57,11 @@ GET /api/mvno/aggregated/:userId
 
 ```
 /src
-  /api           # Express routes and controllers
-  /application   # Application services and DTOs
-  /domain        # Core business logic and entities
-  /infrastructure# External integrations (SOAP/REST)
-/tests          # Test files
+  /api            # Express routes and controllers
+  /application    # Application services and DTOs
+  /domain         # Core business logic and entities
+  /infrastructure # External integrations (SOAP/REST)
+/tests            # Test files
 ```
 
 ## Architecture
@@ -69,7 +69,7 @@ GET /api/mvno/aggregated/:userId
 - **Domain Layer**: Core business entities (User, UsageData, SmsCharge)
 - **Application Layer**: Use cases and data transformation
 - **Infrastructure Layer**: External API clients
-- **Interface Layer**: REST API endpoints
+- **API Layer**: REST API endpoints and controller
 
 ## Error Handling
 
@@ -80,5 +80,3 @@ GET /api/mvno/aggregated/:userId
 ## Testing Strategy
 
 - Unit tests for core business logic
-- Integration tests for API clients
-- End-to-end tests for complete flows
