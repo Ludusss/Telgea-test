@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { SoapToInternalMapper } from "../../../src/application/mappers/soap-to-internal.mapper";
-import { SoapSmsResponseDto } from "../../../src/application/dtos";
+import { SoapToInternalMapper } from "../../src/application/mappers/soap-to-internal.mapper";
+import { SoapSmsResponseDto } from "../../src/application/dtos";
 
 describe("SoapToInternalMapper", () => {
   const mapper = new SoapToInternalMapper();
