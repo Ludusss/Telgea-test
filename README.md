@@ -52,6 +52,7 @@ GET /api/mvno/sms/:userId
 ```http
 GET /api/mvno/aggregated/:userId
 ```
+Aggregates both SOAP and REST api data (both partials of Telgea's internal format) into the Telgea's normalized format.
 
 ## Project Structure
 
