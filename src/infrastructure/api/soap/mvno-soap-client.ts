@@ -36,59 +36,27 @@ export class MvnoSoapClient implements ISoapClient {
     try {
       // In a real implementation, this would make an actual SOAP API call
       // For this assignment, we mock the response
-      const mockSoapResponse = this.getMockSoapResponse(userId);
+      const mockResponse: SoapSmsResponseDto = {
+        "soapenv:Envelope": {
+          "soapenv:Body": {
+            "sms:ChargeSMS": {
+              "sms:UserID": userId,
+              "sms:PhoneNumber": "+46701234567",
+              "sms:MessageID": `msg${Math.floor(Math.random() * 1000)}`,
+              "sms:Timestamp": new Date().toISOString(),
+              "sms:ChargeAmount": "0.05",
+              "sms:Currency": "EUR",
+            },
+          },
+        },
+      };
 
-      // Parse the XML response
-      const parsedResponse = await this.parseXmlResponse(mockSoapResponse);
-
-      return parsedResponse;
+      return mockResponse;
     } catch (error) {
       console.error("Error fetching SMS charge data:", error);
       throw new Error(
         `Failed to fetch SMS charge data: ${error instanceof Error ? error.message : "Unknown error"}`
       );
     }
-  }
-
-  /**
-   * Parse XML response to JavaScript object
-   * @param xmlString XML string to parse
-   * @returns Parsed object
-   */
-  private async parseXmlResponse(
-    xmlString: string
-  ): Promise<SoapSmsResponseDto> {
-    try {
-      return (await this.parser.parseStringPromise(
-        xmlString
-      )) as SoapSmsResponseDto;
-    } catch (error) {
-      throw new Error(
-        `Failed to parse XML response: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
-    }
-  }
-
-  /**
-   * Generate mock SOAP response for testing
-   * @param userId User ID to include in the mock response
-   * @returns Mock SOAP XML string
-   */
-  private getMockSoapResponse(userId: string): string {
-    return `
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sms="http://provider.com/sms">
-        <soapenv:Header/>
-        <soapenv:Body>
-          <sms:ChargeSMS>
-            <sms:UserID>${userId}</sms:UserID>
-            <sms:PhoneNumber>+46701234567</sms:PhoneNumber>
-            <sms:MessageID>msg${Math.floor(Math.random() * 1000)}</sms:MessageID>
-            <sms:Timestamp>${new Date().toISOString()}</sms:Timestamp>
-            <sms:ChargeAmount>0.05</sms:ChargeAmount>
-            <sms:Currency>EUR</sms:Currency>
-          </sms:ChargeSMS>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    `;
   }
 }
