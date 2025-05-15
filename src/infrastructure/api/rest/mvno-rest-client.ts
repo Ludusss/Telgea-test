@@ -1,15 +1,9 @@
 import { RestUsageResponseDto } from '@application/dtos';
 
-/**
- * Interface for REST API client
- */
 export interface IRestClient {
   fetchUsageData(userId: string): Promise<RestUsageResponseDto>;
 }
 
-/**
- * Implementation of REST client for MVNO provider
- */
 export class MvnoRestClient implements IRestClient {
   private readonly baseUrl: string;
   

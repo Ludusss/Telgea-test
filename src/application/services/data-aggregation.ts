@@ -5,34 +5,23 @@ import { NormalizedUserData } from "../../domain/models";
  * Service for aggregating data from different sources into a single normalized format
  */
 export class DataAggregationService {
-  /**
-   * Merges partial internal format objects into a complete internal format
-   * This is used to combine data from different API sources (SOAP and REST)
-   */
   public mergePartialInternalFormats(
     partialFormats: Partial<InternalApiFormatDto>[]
   ): InternalApiFormatDto {
-    // Use Object.assign to merge all partial objects, with later objects overriding earlier ones
-    // for properties that are present in multiple objects
     const merged = partialFormats.reduce(
       (acc, curr) => ({ ...acc, ...curr }),
       {} as InternalApiFormatDto
     );
 
-    // Ensure sms_charges is an array, even if none of the partial formats included it
     if (!merged.sms_charges) {
       merged.sms_charges = [];
     }
 
-    // Ensure each required property exists
     this.validateRequiredProperties(merged);
 
-    return merged as InternalApiFormatDto;;
+    return merged as InternalApiFormatDto;
   }
 
-  /**
-   * Converts a domain NormalizedUserData object into the internal API format DTO
-   */
   public normalizedUserDataToInternalFormat(
     data: NormalizedUserData
   ): InternalApiFormatDto {
@@ -59,7 +48,6 @@ export class DataAggregationService {
       }
     }
 
-    // Validate nested properties in usage_data
     const requiredUsageProps = [
       "total_mb",
       "roaming_mb",
@@ -74,7 +62,6 @@ export class DataAggregationService {
       }
     }
 
-    // Validate nested properties in billing_period
     const requiredBillingProps = ["start", "end"];
 
     for (const prop of requiredBillingProps) {

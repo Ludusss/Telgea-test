@@ -1,5 +1,5 @@
 import { IRestClient } from "../../infrastructure/api/rest/mvno-rest-client";
-import { RestToInternalMapper } from "@application/mappers/rest-to-internal.mapper";
+import { RestToInternalMapper } from "@application/mappers/rest-to-internal";
 import { InternalApiFormatDto } from "../dtos";
 
 /**
@@ -32,7 +32,9 @@ export class GetNormalizedUsageDataUseCase {
         error
       );
       throw new Error(
-        `Failed to get normalized usage data: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Failed to get normalized usage data: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     }
   }

@@ -1,16 +1,10 @@
 import * as xml2js from "xml2js";
 import { SoapSmsResponseDto } from '@application/dtos';
 
-/**
- * Interface for SOAP API client
- */
 export interface ISoapClient {
   fetchSmsChargeData(userId: string): Promise<SoapSmsResponseDto>;
 }
 
-/**
- * Implementation of SOAP client for MVNO provider
- */
 export class MvnoSoapClient implements ISoapClient {
   private readonly baseUrl: string;
   private readonly parser: xml2js.Parser;

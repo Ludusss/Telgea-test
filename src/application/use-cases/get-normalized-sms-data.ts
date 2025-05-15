@@ -1,5 +1,5 @@
 import { ISoapClient } from "../../infrastructure/api/soap/mvno-soap-client";
-import { SoapToInternalMapper } from "../mappers/soap-to-internal.mapper";
+import { SoapToInternalMapper } from "../mappers/soap-to-internal";
 import { InternalApiFormatDto } from "../dtos";
 
 /**
@@ -32,7 +32,9 @@ export class GetNormalizedSmsDataUseCase {
         error
       );
       throw new Error(
-        `Failed to get normalized SMS data: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Failed to get normalized SMS data: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     }
   }

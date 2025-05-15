@@ -9,9 +9,6 @@ import { SmsCharge, User, BillingPeriod } from "../../domain/models";
  * Mapper class to convert SOAP SMS response to the internal API format
  */
 export class SoapToInternalMapper {
-  /**
-   * Maps a SOAP SMS response to an SMS charge object in the internal format
-   */
   public mapSmsResponseToSmsCharge(
     soapResponse: SoapSmsResponseDto
   ): SmsCharge {
@@ -26,9 +23,6 @@ export class SoapToInternalMapper {
     );
   }
 
-  /**
-   * Extract user information from the SOAP response
-   */
   public extractUserFromSoapResponse(soapResponse: SoapSmsResponseDto): User {
     const smsData =
       soapResponse["soapenv:Envelope"]["soapenv:Body"]["sms:ChargeSMS"];
@@ -37,7 +31,6 @@ export class SoapToInternalMapper {
   }
 
   /**
-   * Maps a SOAP SMS response to a partial internal format (just SMS charges)
    * Note: This is a partial mapping and doesn't include usage data or billing period
    */
   public mapToPartialInternalFormat(

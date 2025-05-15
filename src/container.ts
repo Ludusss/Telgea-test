@@ -7,9 +7,9 @@ import {
   MvnoRestClient,
   IRestClient,
 } from "./infrastructure/api/rest/mvno-rest-client";
-import { SoapToInternalMapper } from "./application/mappers/soap-to-internal.mapper";
-import { RestToInternalMapper } from "./application/mappers/rest-to-internal.mapper";
-import { DataAggregationService } from "./application/services/data-aggregation.service";
+import { SoapToInternalMapper } from "./application/mappers/soap-to-internal";
+import { RestToInternalMapper } from "./application/mappers/rest-to-internal";
+import { DataAggregationService } from "./application/services/data-aggregation";
 import { GetNormalizedUsageDataUseCase } from "./application/use-cases/get-normalized-usage-data";
 import { GetNormalizedSmsDataUseCase } from "./application/use-cases/get-normalized-sms-data";
 import { GetAggregatedUserDataUseCase } from "./application/use-cases/get-aggregated-user-data";

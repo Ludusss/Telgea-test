@@ -1,11 +1,3 @@
-/**
- * Domain models for the MVNO integration
- * These represent the core business entities and value objects
- */
-
-/**
- * Represents a mobile user in the telecom system
- */
 export class User {
   constructor(
     public readonly telgeaUserId: string,
@@ -13,18 +5,12 @@ export class User {
   ) {}
 }
 
-/**
- * Value object representing a billing period
- */
 export class BillingPeriod {
   constructor(
     public readonly start: Date,
     public readonly end: Date
   ) {}
 
-  /**
-   * Factory method to create a billing period from ISO date strings
-   */
   public static fromISOStrings(start: string, end: string): BillingPeriod {
     return new BillingPeriod(new Date(start), new Date(end));
   }
@@ -40,9 +26,6 @@ export class BillingPeriod {
   }
 }
 
-/**
- * Value object representing SMS charge information
- */
 export class SmsCharge {
   constructor(
     public readonly messageId: string,
@@ -81,9 +64,6 @@ export class SmsCharge {
   }
 }
 
-/**
- * Value object representing usage data information
- */
 export class UsageData {
   constructor(
     public readonly totalMb: number,
@@ -125,16 +105,10 @@ export class NormalizedUserData {
     public readonly billingPeriod: BillingPeriod
   ) {}
 
-  /**
-   * Add an SMS charge to this user's data
-   */
   public addSmsCharge(smsCharge: SmsCharge): void {
     this._smsCharges.push(smsCharge);
   }
 
-  /**
-   * Add multiple SMS charges to this user's data
-   */
   public addSmsCharges(smsCharges: SmsCharge[]): void {
     this._smsCharges.push(...smsCharges);
   }

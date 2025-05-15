@@ -1,11 +1,3 @@
-/**
- * Application DTOs for the MVNO integration
- * These represent data transfer objects used in the application layer
- */
-
-/**
- * DTO for the SOAP SMS charging response
- */
 export interface SoapSmsResponseDto {
   "soapenv:Envelope": {
     "soapenv:Body": {
@@ -21,9 +13,6 @@ export interface SoapSmsResponseDto {
   };
 }
 
-/**
- * DTO for the REST usage data response
- */
 export interface RestUsageResponseDto {
   user_id: string;
   msisdn: string;
@@ -44,9 +33,6 @@ export interface RestUsageResponseDto {
   };
 }
 
-/**
- * DTO for the normalized internal API format
- */
 export interface InternalApiFormatDto {
   telgea_user_id: string;
   msisdn: string;
@@ -69,9 +55,6 @@ export interface InternalApiFormatDto {
   };
 }
 
-/**
- * DTO for an SMS charge
- */
 export interface SmsChargeDto {
   message_id: string;
   timestamp: string;
@@ -79,9 +62,6 @@ export interface SmsChargeDto {
   currency: string;
 }
 
-/**
- * DTO for usage data
- */
 export interface UsageDataDto {
   total_mb: number;
   roaming_mb: number;

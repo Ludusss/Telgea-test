@@ -6,7 +6,7 @@ export const config = {
   port: process.env.PORT || 3000,
   nodeEnv: process.env.NODE_ENV || "development",
 
-  // API URLs
+  // API URLs (if we had any)
   soapApiUrl:
     process.env.SOAP_API_URL || "https://mvno-provider.example.com/soap",
   restApiUrl:
