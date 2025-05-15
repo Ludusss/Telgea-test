@@ -10,9 +10,9 @@ import {
 import { SoapToInternalMapper } from "./application/mappers/soap-to-internal.mapper";
 import { RestToInternalMapper } from "./application/mappers/rest-to-internal.mapper";
 import { DataAggregationService } from "./application/services/data-aggregation.service";
-import { GetNormalizedUsageDataUseCase } from "./application/use-cases/get-normalized-usage-data";
-import { GetNormalizedSmsDataUseCase } from "./application/use-cases/get-normalized-sms-data";
-import { GetAggregatedUserDataUseCase } from "./application/use-cases/get-aggregated-user-data";
+import { GetNormalizedUsageDataUseCase } from "./application/use-cases/get-normalized-usage-data.use-case";
+import { GetNormalizedSmsDataUseCase } from "./application/use-cases/get-normalized-sms-data.use-case";
+import { GetAggregatedUserDataUseCase } from "./application/use-cases/get-aggregated-user-data.use-case";
 
 // Set up InversifyJS container for dependency injection
 const container = new Container();
