@@ -1,73 +1,84 @@
-# MVNO Integration Architecture Document
+# MVNO Integration Solution
 
-## Overview
+Integration service for MVNO providers with Telgea's API normalizer. Built with TypeScript and follows Domain-Driven Design principles.
 
-This document outlines the architecture for integrating a new Mobile Virtual Network Operator (MVNO) partner with Telgea's internal API normalizer. The solution follows Domain-Driven Design (DDD) principles to create a maintainable, scalable, and extensible system that can adapt to future MVNO integrations.
+## Features
 
-## Architecture Approach
+- Normalizes data from multiple MVNO sources (SOAP/REST)
+- Aggregates usage and SMS charging data
+- Type-safe implementation with comprehensive error handling
+- Follows DDD principles for maintainable, scalable architecture
 
-The architecture follows a clean, layered approach based on DDD:
+## Prerequisites
 
-**1. Domain Layer**
+- Node.js >= 18.0.0
+- npm
 
-- Contains core business concepts, entities, and value objects
-- Defines the ubiquitous language for telecom data and operations
-- Implements domain services that encapsulate business rules
+## Installation
 
-**2. Application Layer**
+```bash
+npm install
+```
 
-- Orchestrates use cases by coordinating domain objects and services
-- Contains services that implement application-specific logic
-- Manages data transformations between external and internal formats
-- Handles commands and queries that represent user intentions
+## Development
 
-**3. Infrastructure Layer**
+Start the development server:
 
-- Implements technical capabilities like API clients
-- Contains adapters for external systems (SOAP/REST clients)
-- Handles persistence concerns (if applicable)
-- Manages cross-cutting concerns like logging and monitoring
+```bash
+npm run dev
+```
 
-**4. Interface Layer**
+## Testing
 
-- Express.js API endpoints exposing integration capabilities
-- Controllers handling HTTP requests/responses
-- API documentation and validation
+Run the test suite:
 
-## Design Decisions
+```bash
+npm test
+```
 
-1. **Provider Agnostic Architecture**  
-   The system is designed to accommodate multiple MVNO providers by implementing the adapter pattern. Each provider has its own adapter that converts from provider-specific formats to our internal format.
+## API Endpoints
 
-2. **Data Aggregation Strategy**  
-   Since the MVNO provides data through multiple endpoints (SOAP for SMS, REST for usage data), we implement an aggregation service that combines these into the unified internal format.
+### Get Usage Data
+```http
+GET /api/mvno/usage/:userId
+```
 
-3. **Error Handling and Resilience**  
-   The implementation includes proper error handling with specific error types and a retry mechanism for transient failures in API calls.
+### Get SMS Data
+```http
+GET /api/mvno/sms/:userId
+```
 
-4. **Type Safety**  
-   Extensive use of TypeScript interfaces ensures type safety throughout the application, reducing runtime errors.
+### Get Aggregated Data
+```http
+GET /api/mvno/aggregated/:userId
+```
 
-5. **Testing Strategy**  
-   The architecture supports comprehensive testing at multiple levels:
-   - Unit tests for domain logic
-   - Integration tests for API clients
-   - End-to-end tests for complete flows
+## Project Structure
 
-## Key Components
+```
+/src
+  /api           # Express routes and controllers
+  /application   # Application services and DTOs
+  /domain        # Core business logic and entities
+  /infrastructure# External integrations (SOAP/REST)
+/tests          # Test files
+```
 
-**Converters**  
-Specialized components that transform data between formats:
+## Architecture
 
-- SOAP to Internal Format Converter
-- REST to Internal Format Converter
-- Aggregated Internal Format Builder
+- **Domain Layer**: Core business entities (User, UsageData, SmsCharge)
+- **Application Layer**: Use cases and data transformation
+- **Infrastructure Layer**: External API clients
+- **Interface Layer**: REST API endpoints
 
-**API Clients**  
-Abstracted clients that handle communication details:
+## Error Handling
 
-- SOAP Client for SMS charging data
-- REST Client for usage data
+- Comprehensive error handling throughout all layers
+- Detailed error messages for debugging
+- Error logging for monitoring
 
-**Domain Models**  
-Well-defined entities and value objects representing core concepts:
+## Testing Strategy
+
+- Unit tests for core business logic
+- Integration tests for API clients
+- End-to-end tests for complete flows
